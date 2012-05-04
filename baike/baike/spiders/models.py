@@ -2,12 +2,12 @@
 __author__ = 'chenchiyuan'
 
 import fcntl
-from pymongo import Connection
-START = 100001
-END = 200000
-
-c = Connection()
-db = c.baike_tags
+#from pymongo import Connection
+START = 200001
+END = 300000
+#
+#c = Connection()
+#db = c.baike_tags
 import codecs
 
 class Tag(object):
@@ -28,3 +28,21 @@ class Tag(object):
         file.write(self.name+':::'+self.num+':::'+self.url+':::'+tags+':::'+items+'\n')
         file.close()
         fcntl.flock(file, fcntl.LOCK_UN)
+
+    @classmethod
+    def remain_items(cls):
+        file = open("tags_%d_%d" %(START, END), 'r')
+        lines = file.readlines()
+        file.close()
+
+        results = []
+        for line in lines:
+            items = line.split(':::')
+            if len(items) > 1:
+                results.append(int(items[1]))
+
+        origin = range(START, END+1)
+        for r in results:
+            origin.remove(r)
+
+        return origin

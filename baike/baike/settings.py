@@ -5,6 +5,7 @@
 #
 #     http://doc.scrapy.org/topics/settings.html
 #
+LOG_ENABLED = False
 
 BOT_NAME = 'baike'
 BOT_VERSION = '1.0'

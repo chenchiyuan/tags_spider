@@ -18,7 +18,8 @@ class Spider(CrawlSpider):
     start_urls = ['http://baike.baidu.com/view/1.htm']
 
     def parse(self, response):
-        for i in range(START, END+1):
+        nums = Tag.remain_items()
+        for i in nums:
             request_url = DOMAIN + '/view/' + str(i) + '.htm'
             request = Request(request_url, callback=self.parse_page)
             request.meta['view_num'] = str(i)
